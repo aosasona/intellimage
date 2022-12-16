@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . "/vendor/autoload.php";
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
+
 $request_path = parse_url($_SERVER["REQUEST_URI"])["path"];
 $pages_dir = __DIR__ . "/pages";
 $filename = $pages_dir . (strlen($request_path) < 2 ? "/index" : $request_path);

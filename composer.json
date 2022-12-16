@@ -7,5 +7,8 @@
             "email": "97124713+aosasona@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "orhanerday/open-ai": "^3.2",
+        "vlucas/phpdotenv": "^5.5"
+    }
 }

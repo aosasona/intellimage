@@ -1,0 +1,17 @@
+version: '3'
+
+volumes:
+  data:
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "12000:80"
+    volumes:
+      - ./:/var/www/html # Mount the current directory to /var/www/html for dev purposes
+    env_file:
+      - ./.env
+    restart: always
