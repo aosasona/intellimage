@@ -1,5 +1,10 @@
 <?php
 
+ini_set("display_errors", 0);
+ini_set("display_startup_errors", 0);
+ini_set("error_reporting", 0);
+ini_set("log_errors", 1);
+
 require_once __DIR__ . "/vendor/autoload.php";
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

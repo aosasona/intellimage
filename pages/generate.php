@@ -11,7 +11,7 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) == "GET") {
 }
 
 
-$has_no_data = (int)(!isset($_POST["prompt"]) && !(isset($_FILES["user_image"]) && $_FILES["user_image"]["error"] === UPLOAD_ERR_OK));
+$has_no_data = (int)(!isset($_POST["prompt"]) && !isset($_FILES["user_image"]));
 $open_ai_key = $_ENV["OPENAI_API_KEY"];
 $open_ai = new OpenAi($open_ai_key);
 
@@ -30,7 +30,7 @@ if (!$has_no_data) {
 
       $file = $_FILES["user_image"];
 
-      if ($file["size"] > 3000000) throw new \Exception("File too large!");
+      if ($file["size"] > 5000000) throw new \Exception("File too large!");
 
       $temp_name = $file["tmp_name"];
       $file_name = basename($file["name"]);
