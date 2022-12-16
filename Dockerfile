@@ -16,7 +16,8 @@ RUN chown -R www-data:www-data /var/www
 RUN echo "file_uploads = On" >> /usr/local/etc/php/php.ini \
   && echo "upload_max_filesize = 100M" >> /usr/local/etc/php/php.ini \
   && echo "post_max_size = 100M" >> /usr/local/etc/php/php.ini \
-  && echo "memory_limit = 256M" >> /usr/local/etc/php/php.ini
+  && echo "memory_limit = 256M" >> /usr/local/etc/php/php.ini \
+  && echo "upload_tmp_dir = \"/tmp\"" >> /usr/local/etc/php/php.ini
 
 COPY composer.json .
 
