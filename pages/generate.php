@@ -19,7 +19,27 @@ if (!$has_no_data) {
   try {
     $results = [];
 
-    if (isset($_POST["prompt"]) && $_POST["prompt"] != "") {
+    if((isset($_POST["prompt"]) && $_POST["prompt"] != "") && isset($_FILES["user_image"])) {
+
+      $file = $_FILES["user_image"];
+
+      if ($file["size"] > 5000000) throw new \Exception("File too large!");
+
+      $temp_name = $file["tmp_name"];
+      $file_name = basename($file["name"]);
+      $image = curl_file_create($temp_name, $file["type"], $file_name);
+
+      $results = json_decode(
+        $open_ai->imageEdit([
+          "image" => $image,
+          "mask" => $image,
+          "prompt" => htmlspecialchars($_POST["prompt"]),
+          "n" => NUM_IMAGES,
+          "size" => IMAGE_DIMENSION,
+      ]) ?? [],
+        true
+      )["data"] ?? [];
+    } elseif (isset($_POST["prompt"]) && $_POST["prompt"] != "") {
       $results = json_decode($open_ai->image([
         "prompt" => htmlspecialchars($_POST["prompt"]),
         "n" => NUM_IMAGES,
@@ -47,6 +67,7 @@ if (!$has_no_data) {
     }
   } catch (\Exception $e) {
     $has_error = true;
+    $current_error = $e->getMessage();
   }
 }
 ?>
